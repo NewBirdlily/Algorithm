@@ -1,8 +1,8 @@
-#include<iostream>
-using namespace std;
-
 #ifndef _ARRAY_H
 #define _ARRAY_H
+
+#include<iostream>
+using namespace std;
 
 class MyArray{
 public:
@@ -11,6 +11,16 @@ public:
         size = 0;
         this->capacity=capacity;
     }
+
+    ~MyArray() {
+        delete[] array;
+    }
+
+    //获取数组元素个数
+    int getSize() const{
+        return size;
+    }
+
     //数组插入元素
     void insert(int index,int element) {
         //判断访问下标是否超出范围
@@ -55,6 +65,24 @@ public:
             cout<<array[i]<<' ';
         cout<<endl;
     }
+
+    //操作符重载
+    int& operator[](int index) {
+        if (index < 0 || index >= size) {
+            cout << "Invalid index!" << endl;
+            exit(1);
+        }
+        return array[index];
+    }
+
+    const int& operator[](int index) const {
+        if (index < 0 || index >= size) {
+            cout << "Invalid index!" << endl;
+            exit(1);
+        }
+        return array[index];
+    }
+
 private:
     int* array;
     int size;
